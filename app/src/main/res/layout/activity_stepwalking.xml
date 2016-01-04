@@ -1,0 +1,90 @@
+<LinearLayout xmlns:pdReport="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    pdReport:layout_width="fill_parent"
+    pdReport:layout_height="fill_parent"
+    pdReport:paddingLeft="@dimen/activity_horizontal_margin"
+    pdReport:paddingRight="@dimen/activity_horizontal_margin"
+    pdReport:paddingTop="@dimen/activity_vertical_margin"
+    pdReport:paddingBottom="@dimen/activity_vertical_margin"
+    pdReport:orientation="vertical"
+    tools:context=".StepWalking">
+
+    <LinearLayout
+        pdReport:layout_width="fill_parent"
+        pdReport:layout_height="wrap_content"
+        pdReport:orientation="vertical"
+        pdReport:gravity="center">
+
+        <LinearLayout
+            pdReport:layout_width="fill_parent"
+            pdReport:layout_height="wrap_content"
+            pdReport:orientation="horizontal">
+            <TextView
+                pdReport:layout_width="wrap_content"
+                pdReport:layout_height="wrap_content"
+                pdReport:textSize="25sp"
+                pdReport:text = "걸음 수 :"/>
+            <TextView
+                pdReport:layout_width="match_parent"
+                pdReport:layout_height="wrap_content"
+                pdReport:textColor="@android:color/holo_red_light"
+                pdReport:textSize="25sp"
+                pdReport:gravity="center"
+                pdReport:id="@+id/cntView" />
+        </LinearLayout>
+
+        <LinearLayout
+            pdReport:layout_width="fill_parent"
+            pdReport:layout_height="wrap_content"
+            pdReport:orientation="horizontal">
+            <TextView
+                pdReport:layout_width="fill_parent"
+                pdReport:layout_height="wrap_content"
+                pdReport:textSize="25sp"
+                pdReport:text = "이동 거리 :"/>
+            <TextView
+                pdReport:layout_width="fill_parent"
+                pdReport:layout_height="wrap_content"
+                pdReport:textColor="@android:color/holo_red_light"
+                pdReport:textSize="25sp"
+                pdReport:gravity="center"
+                pdReport:id="@+id/MoveDistance" />
+        </LinearLayout>
+
+        <LinearLayout
+            pdReport:layout_width="fill_parent"
+            pdReport:layout_height="wrap_content"
+            pdReport:orientation="horizontal">
+            <TextView
+                pdReport:layout_width="fill_parent"
+                pdReport:layout_height="wrap_content"
+                pdReport:textSize="25sp"
+                pdReport:text = "소모한 칼로리 :"/>
+            <TextView
+                pdReport:layout_width="fill_parent"
+                pdReport:layout_height="wrap_content"
+                pdReport:textColor="@android:color/holo_red_light"
+                pdReport:textSize="25sp"
+                pdReport:gravity="center"
+                pdReport:id="@+id/ConsumeCalorie" />
+        </LinearLayout>
+
+        <Button
+            pdReport:layout_width="fill_parent"
+            pdReport:layout_height="wrap_content"
+            pdReport:text="Reset"
+            pdReport:onClick="mOnClick"
+            pdReport:layout_below="@+id/cntView"
+            pdReport:id="@+id/resetBtn"/>
+    </LinearLayout>
+
+    <Button
+        pdReport:layout_width="fill_parent"
+        pdReport:layout_height="fill_parent"
+        pdReport:textSize ="50dp"
+        pdReport:text = "GooGle MAP"
+
+        pdReport:background="#bdb2b1"/>
+
+
+</LinearLayout>
