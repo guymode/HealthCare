@@ -37,7 +37,7 @@ public class MainActivity extends TabActivity {
     private DataInputStream is;
     private static final int PORT = 5555;
     private Socket socket;
-    private String IP = "192.168.84.1";
+    private String IP = "192.168.0.99";
 
     public static final String PROPERTY_REG_ID = "mylittlecalendar-1143";
     private static final String PROPERTY_APP_VERSION = "1.0";
@@ -253,6 +253,7 @@ public class MainActivity extends TabActivity {
                     editor.putString("regid", regid);
                     editor.commit();
                     System.out.println(msg);
+
                     //mDlg.show();
                     //while문의 break 조건은 계정정보가 완료이다.
                     msg = "UP_" + clientID
@@ -265,6 +266,10 @@ public class MainActivity extends TabActivity {
                             + "REG_" + regid;
 
                     publishProgress("서버에 접속 중");
+
+                    //dev
+                    return 1;
+/*
                     socket = new Socket(InetAddress.getByName(IP), PORT);
                     os = new DataOutputStream(socket.getOutputStream());
                     is = new DataInputStream(socket.getInputStream());
@@ -281,6 +286,7 @@ public class MainActivity extends TabActivity {
                         return 2;
                     }
                     return 0;
+                    */
                 } catch (IOException ex) {
                     //msg = "Error :" + ex.getMessage();
                     Log.d("TAG", ex.getMessage());

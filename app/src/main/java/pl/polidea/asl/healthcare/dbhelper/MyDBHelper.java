@@ -17,7 +17,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
 
         db.execSQL("CREATE TABLE today(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 + "date TEXT , " + "what TEXT , " + "name TEXT , " + "kcal TEXT ); ");
+                 + "date TEXT , " + "what TEXT , " + "name TEXT , " + "kcal TEXT, carbo TEXT, protein TEXT, fat TEXT ); ");
         System.out.println("CREATE today TABLE");
     }
 

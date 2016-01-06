@@ -13,18 +13,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import pl.polidea.asl.healthcare.dbhelper.FoodDBHelper;
@@ -46,6 +50,9 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
     private FoodDBHelper myDbHelper;
     private SQLiteDatabase sqdb;
 
+    ArrayList<String> m_tasklist;
+    ArrayAdapter<String> lv_adapter;
+    ListView lview;
 
     static MyDBHelper todayDBHelper;
     static SQLiteDatabase db;
@@ -73,6 +80,14 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
         catch (IOException ioe) {
             throw new Error("Unable to create database");
         }
+
+        m_tasklist = new ArrayList<String>();
+        lv_adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_2, m_tasklist);
+
+        lview = (ListView) findViewById(R.id.lv_d_foodlist);
+        lview.setAdapter(lv_adapter);
+        lview.setOnItemClickListener(this);
 
         try {
             myDbHelper.openDatabase();
@@ -116,16 +131,21 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
             sqdb = myDbHelper.getWritableDatabase();
             Keyword = FoodText.getText().toString();
 
-            Cursor c = sqdb.rawQuery("select * from FoodList" + " where col_3 = '"+ Keyword +"';", null);
-            String[] from = new String[]{"name", "kcal"};
+            //Cursor c = sqdb.rawQuery("select * from FoodList" + " where col_3 = '"+ Keyword +"';", null);
+            Cursor c= sqdb.rawQuery("select * from FoodList" + " where col_3 LIKE '%"+Keyword+"%';",null);
+            String[] from = new String[]{"col_3", "col_5"};
             c.moveToFirst();
             int[]to = new int[]{ R.id.tv_name, R.id.tv_kcal};
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.activity_cell, c,
                     from,
                     to);
-            ListView foodList = (ListView) findViewById(R.id.lv_d_foodlist);
-            foodList.setAdapter(adapter);
+            //ListView foodList = (ListView) findViewById(R.id.lv_d_foodlist);
+            //foodList.setAdapter(adapter);
 
+            ListView list = (ListView) findViewById(R.id.lv_d_foodlist);
+            list.setAdapter(adapter);
+
+            lv_adapter.notifyDataSetChanged();
 
             /*
             Cursor Cdb = sqdb.rawQuery("select * from FoodList"
@@ -197,20 +217,98 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
         switch (parent.getId()) {
             //리스트를 클릭한경우
             //이미 있는 일정을 수정하거나 삭제
-            case R.id.lv_task:
+            case R.id.lv_d_foodlist:
 //                Toast.makeText(getApplicationContext(), "list_Clicked", Toast.LENGTH_SHORT).show();
                 // TODO Auto-generated method stub
                 //커서 객체를 통해 일정의 타이틀을 가져옴
                 Cursor c = (Cursor) parent.getItemAtPosition(pos);
 //                Toast.makeText(getApplicationContext(),c.getString(1),Toast.LENGTH_SHORT).show();
-                System.out.println("getString(0), (1)-> "+ c.getString(0)+c.getString(1));
-                System.out.println("getString(2), (3) ->" + c.getString(2) + c.getString(3));
+
+                String foodname = c.getString(2);
+
+
+                //System.out.println("getString(0), (1)-> "+ c.getString(0)+c.getString(1));
+                //System.out.println("getString(2), (3) ->" + c.getString(2) + c.getString(3));
+                //System.out.println(c.getString(4)+" 0"+c.getString(5));
                 //lv_Task버튼 누를시 Param에 2전달
+                //Toast.makeText(getApplicationContext(),"음식을 먼저 검색해주세요",Toast.LENGTH_SHORT).show();
                 //intent.putExtra("Param", 2);
+
+                LayoutInflater inflater = getLayoutInflater();
+                final View view_enroll = inflater.inflate(R.layout.activity_dialogue_food, null);
+
+                FoodName = (TextView) view_enroll.findViewById(R.id.tv_d_foodName);
+                OneMeal = (TextView) view_enroll.findViewById(R.id.tv_d_oneMeal);
+                kcalText = (TextView) view_enroll.findViewById(R.id.tv_d_kcal);
+                carbo = (TextView) view_enroll.findViewById(R.id.tv_d_carbo);
+                protein = (TextView) view_enroll.findViewById(R.id.tv_d_protein);
+                fat = (TextView) view_enroll.findViewById(R.id.tv_d_fat);
+                saccharide = (TextView) view_enroll.findViewById(R.id.tv_d_sugar);
+                natrium = (TextView) view_enroll.findViewById(R.id.tv_d_na);
+                choles = (TextView) view_enroll.findViewById(R.id.tv_d_col);
+                saturated = (TextView) view_enroll.findViewById(R.id.tv_d_satfat);
+                transfat = (TextView) view_enroll.findViewById(R.id.tv_d_tranfat);
+
+                FoodName.setText(c.getString(2));
+                OneMeal.setText(c.getString(3));
+                kcalText.setText(c.getString(4));
+                carbo.setText(c.getString(5));
+                protein.setText(c.getString(6));
+                fat.setText(c.getString(7));
+                saccharide.setText(c.getString(8));
+                natrium.setText(c.getString(9));
+                choles.setText(c.getString(10));
+                saturated.setText(c.getString(11));
+                transfat.setText(c.getString(12));
+
+                final AlertDialog.Builder buider = new AlertDialog.Builder(this); //객체 생성
+
+                buider.setTitle("FOOD INFORMATION"); //타이틀
+                buider.setView(view_enroll); //빌더 세팅
+                buider.setPositiveButton("추가", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Date date = new Date();// 오늘에 날짜를 세팅 해준다.
+                        int year, mon, day;
+                        year = date.getYear() + 1900;
+                        mon = date.getMonth() + 1;
+                        day = date.getDate();
+
+
+                        db.execSQL("INSERT INTO today VALUES(null, '"
+                                    + year + "/" + mon + "/" + day + "', '"
+                                    + "음식" + "', '"
+                                    + FoodName.getText().toString() + "', '"
+                                    + kcalText.getText().toString() + "', '"
+                                    + carbo.getText().toString() + "', '"
+                                    + protein.getText().toString() +"', '"
+                                    + fat.getText().toString() +"');");
+                        System.out.println("ADDED TASK");
+
+                        System.out.println(year + "/" + mon + "/" + day);
+                    }
+                });
+                buider.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                buider.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                buider.show();
+
+
+
                 break;
         }
 
     }
+
 
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data){
