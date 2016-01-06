@@ -6,7 +6,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="5dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/bg_d_infor"
+    >
 
 <ScrollView
     android:layout_width="match_parent"
@@ -18,108 +20,174 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="ID"
-            android:id="@+id/tv_regid"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:text="ID"
+
+                android:id="@+id/tv_regid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFFFF"></TextView>
+
+            <EditText
+                android:id="@+id/et_regid"
+                android:layout_width="200dp"
+                android:layout_height="40dip"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:textColor="#FFFFFFFF"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:text="NAME   "
+                android:id="@+id/tv_regname"
+                android:textColor="#FFFFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+
+            <EditText
+                android:id="@+id/et_regname"
+                android:layout_width="200dip"
+                android:layout_height="40dip"
+                android:textColor="#FFFFFFFF"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:text="E-MAIL   "
+                android:id="@+id/tv_regemail"
+                android:textColor="#FFFFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+
+            <EditText
+                android:id="@+id/et_regemail"
+                android:layout_width="200dip"
+                android:layout_height="40dip"
+                android:textColor="#FFFFFFFF"
+                android:imeOptions="actionNext"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:text = "Server IP Address   "
+                android:layout_width="wrap_content"
+                android:textColor="#FFFFFFFF"
+                android:layout_height="wrap_content"></TextView>
+
+            <EditText
+                android:layout_width="200dip"
+                android:layout_height="40dip"
+                android:id="@+id/et_regip"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:textColor="#FFFFFFFF"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="성별을 선택하세요       "
+                android:textColor="#FFFFFFFF"
+                android:id="@+id/textView3"></TextView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/bu_gender"
+                android:textColor="#FFFFFFFF"
+                android:background="#33787878"
+                android:text="성별"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_height="wrap_content"
+                android:textColor="#FFFFFFFF"
+            android:text="AGE   " />
 
-        <EditText
-            android:id="@+id/et_regid"
-            android:layout_width="200dip"
-            android:layout_height="40dip"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColor="#000"
-            />
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textColor="#FFFFFFFF"
+                android:inputType="number"
+                android:id="@+id/et_age" />
+        </LinearLayout>
 
-        <TextView
-            android:text="NAME"
-            android:id="@+id/tv_regname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
 
-        <EditText
-            android:id="@+id/et_regname"
-            android:layout_width="200dip"
-            android:layout_height="40dip"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColor="#000"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFFFF"
+                android:text="HEIGHT"/>
 
-        <TextView
-            android:text="E-MAIL"
-            android:id="@+id/tv_regemail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textColor="#FFFFFFFF"
+                android:inputType="number"
+                android:id="@+id/et_height" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_regemail"
-            android:layout_width="200dip"
-            android:layout_height="40dip"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColor="#000"/>
-
-        <TextView
-            android:text = "Server IP Address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
-
-        <EditText
-            android:layout_width="200dip"
-            android:layout_height="40dip"
-            android:id="@+id/et_regip"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColor="#000"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="성별을 선택하세요"
-            android:id="@+id/textView3"></TextView>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:id="@+id/bu_gender"
-            android:text="성별"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="나이를 입력하시오" />
+            android:textColor="#FFFFFFFF"
+            android:text="WEIGHT"/>
 
         <EditText
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:inputType="number"
-            android:id="@+id/et_age" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="키를 입력하시오"/>
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:inputType="number"
-            android:id="@+id/et_height" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="몸무게를 입력하시오"/>
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:inputType="number"
+            android:textColor="#FFFFFFFF"
             android:imeOptions="actionDone"
             android:id="@+id/et_weight" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

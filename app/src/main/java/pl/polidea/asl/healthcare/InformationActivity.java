@@ -4,11 +4,17 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -38,6 +44,13 @@ public class InformationActivity  extends Activity {
     TextView tv_total, tv_food, tv_exer, tv_remain;
     TextView tv_carbo, tv_protein, tv_fat;
     ProgressBar carboProgressBar, proProgressBar, fatProgressBar;
+    RelativeLayout myLayout;
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,18 @@ public class InformationActivity  extends Activity {
         information = PreferenceManager.getDefaultSharedPreferences(this);
         todayDBHelper = new MyDBHelper(this, "Today.db", null, 1);
         db = todayDBHelper.getWritableDatabase();
+
+        myLayout = (RelativeLayout) findViewById(R.id.lo_inforLayout);
+
+        int reWidth=(int)(getWindowManager().getDefaultDisplay().getWidth());
+        int reHeight=(int)(getWindowManager().getDefaultDisplay().getHeight());
+        Bitmap background = BitmapFactory.decodeResource(getResources(),R.drawable.bg_main);
+
+        Bitmap reSized = Bitmap.createScaledBitmap(background, reWidth,reHeight, true);
+        Drawable d = new BitmapDrawable(reSized);
+
+        myLayout.setBackgroundDrawable(d);
+
 
         tv_total = (TextView) findViewById(R.id.tv_totalkcal);
         tv_food = (TextView) findViewById(R.id.tv_foodkcal);

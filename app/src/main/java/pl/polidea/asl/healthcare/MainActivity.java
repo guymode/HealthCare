@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,8 +19,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -131,7 +136,7 @@ public class MainActivity extends TabActivity {
                 ab.setSingleChoiceItems(genders, 0,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Toast.makeText(getApplicationContext(), whichButton+"", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), whichButton + "", Toast.LENGTH_SHORT).show();
                                 // 각 리스트를 선택했을때
                                 choiceButton = whichButton;
                             }
@@ -139,10 +144,10 @@ public class MainActivity extends TabActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 gender = choiceButton;
-                                if(choiceButton == -1)  gender = 0;
-                                Toast.makeText(getApplicationContext(), whichButton+"", Toast.LENGTH_SHORT).show();
-                                if(gender == 0) bu_gender.setText("남자");
-                                if(gender == 1) bu_gender.setText("여자");
+                                if (choiceButton == -1) gender = 0;
+                                Toast.makeText(getApplicationContext(), whichButton + "", Toast.LENGTH_SHORT).show();
+                                if (gender == 0) bu_gender.setText("남자");
+                                if (gender == 1) bu_gender.setText("여자");
                                 // OK 버튼 클릭시 , 여기서 선택한 값을 메인 Activity 로 넘기면 된다.
                             }
                         }).setNegativeButton("Cancel",
@@ -158,7 +163,14 @@ public class MainActivity extends TabActivity {
 
         ipadrress.setText(IP);
 
-        buider.setTitle("INPUT YOUR INFORMATION"); //타이틀
+        Drawable mInfoIcon = this.getResources().getDrawable(R.drawable.bg_d_infor_title);
+
+   //     Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg_d_infor_title);
+        View v= new LinearLayout(this);
+        v.setBackground(mInfoIcon);
+
+        buider.setCustomTitle(v);
+        //buider.setTitle("INPUT YOUR INFORMATION"); //타이틀
         buider.setView(view_enroll); //빌더 세팅
         //buider.setIcon(R.drawable.logo);   //이미지
         buider.setPositiveButton("제출", new DialogInterface.OnClickListener() {

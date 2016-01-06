@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -22,7 +26,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,10 +70,23 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
 
     private static final String TAG = "SearchFood";
 
+    LinearLayout myLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
+        myLayout = (LinearLayout) findViewById(R.id.lo_foodLayout);
+
+        int reWidth=(int)(getWindowManager().getDefaultDisplay().getWidth());
+        int reHeight=(int)(getWindowManager().getDefaultDisplay().getHeight());
+        Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.bg_food);
+
+        Bitmap reSized = Bitmap.createScaledBitmap(background, reWidth,reHeight, true);
+        Drawable d = new BitmapDrawable(reSized);
+
+        myLayout.setBackgroundDrawable(d);
 
         Log.i(TAG, "onCreate");
         myDbHelper = new FoodDBHelper(this);
