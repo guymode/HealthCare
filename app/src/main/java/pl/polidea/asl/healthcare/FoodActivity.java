@@ -45,7 +45,8 @@ import pl.polidea.asl.healthcare.dbhelper.MyDBHelper;
  */
 public class FoodActivity extends ActionBarActivity implements View.OnClickListener, TextWatcher, AdapterView.OnItemClickListener {
 
-    private AutoCompleteTextView FoodText;
+    //private AutoCompleteTextView FoodText;
+    private EditText FoodText;
     private TextView textView, textView2, textView3, textView4, textView5,
             textView6, textView7, textView8, textView9, textView10, textView11;
 
@@ -66,7 +67,7 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
     private java.util.ArrayList<String> mResult;
     private String mSelectedString;
     private String sendKcal = "";
-    private String ArrayList[] = {"콩나물해장국", "김치찌개", "감자탕", "소머리국밥", "김밥", "참치김밥", "치즈김밥", "샐러드김밥", "소고기김밥", "충무김밥", "감자볶음", "감자찌개", "김치볶음밥"};
+    //private String ArrayList[] = {"콩나물해장국", "김치찌개", "감자탕", "소머리국밥", "김밥", "참치김밥", "치즈김밥", "샐러드김밥", "소고기김밥", "충무김밥", "감자볶음", "감자찌개", "김치볶음밥"};
 
     private static final String TAG = "SearchFood";
 
@@ -116,10 +117,45 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
         }
 
         findViewById(R.id.foodMic).setOnClickListener(this);
-        findViewById(R.id.btn_searchfood).setOnClickListener(this);
+        //findViewById(R.id.btn_searchfood).setOnClickListener(this);
         //findViewById(R.id.btn_addfood).setOnClickListener(this);
 
-        FoodText = (AutoCompleteTextView) findViewById(R.id.FoodInput);
+
+        //FoodText = (AutoCompleteTextView) findViewById(R.id.FoodInput);
+        FoodText = (EditText) findViewById(R.id.FoodInput);
+        FoodText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sqdb = myDbHelper.getWritableDatabase();
+                Keyword = FoodText.getText().toString();
+
+                //Cursor c = sqdb.rawQuery("select * from FoodList" + " where col_3 = '"+ Keyword +"';", null);
+                Cursor c= sqdb.rawQuery("select * from FoodList" + " where col_3 LIKE '%"+Keyword+"%';",null);
+                String[] from = new String[]{"col_3", "col_5"};
+                c.moveToFirst();
+                int[]to = new int[]{ R.id.tv_name, R.id.tv_kcal};
+                SimpleCursorAdapter adapter = new SimpleCursorAdapter(FoodActivity.this, R.layout.activity_cell, c,
+                        from,
+                        to);
+                //ListView foodList = (ListView) findViewById(R.id.lv_d_foodlist);
+                //foodList.setAdapter(adapter);
+
+                ListView list = (ListView) findViewById(R.id.lv_d_foodlist);
+                list.setAdapter(adapter);
+
+                lv_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         /*
         FoodName = (TextView) findViewById(R.id.FoodName);
         OneMeal = (TextView) findViewById(R.id.OneMeal);
@@ -133,19 +169,23 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
         saturated = (TextView) findViewById(R.id.saturated);
         transfat = (TextView) findViewById(R.id.transfat);*/
 
+
+        /*
         FoodText.addTextChangedListener(this);
         FoodText.setAdapter(new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_dropdown_item_1line,
                 ArrayList));
-
+    */
 
     }
 
     @Override
     public void onClick(View v) {
-        int view = v.getId();
 
+
+        int view = v.getId();
+        /*
         if (view == R.id.btn_searchfood){
             sqdb = myDbHelper.getWritableDatabase();
             Keyword = FoodText.getText().toString();
@@ -189,9 +229,9 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
                 transfat.setText(Cdb.getString(12));
 
             }
-        */
 
-        }
+
+        }*/
 
         if (view == R.id.foodMic) {        //구글 음성인식 앱 사용이면
 

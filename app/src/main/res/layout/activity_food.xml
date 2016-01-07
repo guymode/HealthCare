@@ -18,12 +18,14 @@
         >
 
 
-        <AutoCompleteTextView
+       <!-- <AutoCompleteTextView
+       -->
+        <EditText
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:id="@+id/FoodInput"
             android:hint="음식 이름" />
-
+<!--
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -31,10 +33,10 @@
             android:id="@+id/btn_searchfood"
             android:focusable ="false"
             android:onClick="onClick" />
-
+-->
         <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@drawable/ic_btn_searchmic"
             android:id="@+id/foodMic"
             android:focusable ="false"
