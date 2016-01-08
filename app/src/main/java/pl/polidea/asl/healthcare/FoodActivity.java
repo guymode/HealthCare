@@ -435,30 +435,22 @@ public class FoodActivity extends ActionBarActivity implements View.OnClickListe
                         //FoodText.setText();
                         // new SendMessage().execute();
 
-                        sqdb = myDbHelper.getWritableDatabase();
-                        Keyword = FoodText.getText().toString();
-
-                        Cursor Cdb = sqdb.rawQuery("select * from FoodList"
-                                + " where col_3 = '"+ Keyword +"';", null);
-
-                        Cdb.moveToFirst();
-                        sendKcal = Cdb.getString(4);
                         //Cdb.getString(2);
                         //음식명, 한끼 식사량, Kcal, 탄수화물, 단백질, 지방, 당류, 나트륨, 콜레스테롤, 포화지방, 트랜스지방
+                        Cursor c= sqdb.rawQuery("select * from FoodList" + " where col_3 LIKE '%"+Keyword+"%';",null);
+                        String[] from = new String[]{"col_3", "col_5"};
+                        c.moveToFirst();
+                        int[]to = new int[]{ R.id.tv_name, R.id.tv_kcal};
+                        SimpleCursorAdapter adapter = new SimpleCursorAdapter(FoodActivity.this, R.layout.activity_cell, c,
+                                from,
+                                to);
+                        //ListView foodList = (ListView) findViewById(R.id.lv_d_foodlist);
+                        //foodList.setAdapter(adapter);
 
+                        ListView list = (ListView) findViewById(R.id.lv_d_foodlist);
+                        list.setAdapter(adapter);
 
-
-                        FoodName.setText(Cdb.getString(2));
-                        OneMeal.setText(Cdb.getString(3));
-                        kcalText.setText(Cdb.getString(4));
-                        carbo.setText(Cdb.getString(5));
-                        protein.setText(Cdb.getString(6));
-                        fat.setText(Cdb.getString(7));
-                        saccharide.setText(Cdb.getString(8));
-                        natrium.setText(Cdb.getString(9));
-                        choles.setText(Cdb.getString(10));
-                        saturated.setText(Cdb.getString(11));
-                        transfat.setText(Cdb.getString(12));
+                        lv_adapter.notifyDataSetChanged();
 
                     }
                 })

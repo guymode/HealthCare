@@ -279,9 +279,8 @@ public class MainActivity extends TabActivity {
 
                     publishProgress("서버에 접속 중");
 
-                    //dev
-                    return 1;
-/*
+
+
                     socket = new Socket(InetAddress.getByName(IP), PORT);
                     os = new DataOutputStream(socket.getOutputStream());
                     is = new DataInputStream(socket.getInputStream());
@@ -298,7 +297,7 @@ public class MainActivity extends TabActivity {
                         return 2;
                     }
                     return 0;
-                    */
+
                 } catch (IOException ex) {
                     //msg = "Error :" + ex.getMessage();
                     Log.d("TAG", ex.getMessage());
