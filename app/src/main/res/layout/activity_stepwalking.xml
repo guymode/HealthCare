@@ -1,5 +1,10 @@
+
+
+
+
 <LinearLayout xmlns:pdReport="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res-auto"
     pdReport:layout_width="fill_parent"
     pdReport:layout_height="fill_parent"
     pdReport:paddingLeft="@dimen/activity_horizontal_margin"
@@ -78,13 +83,14 @@
             pdReport:id="@+id/resetBtn"/>
     </LinearLayout>
 
-    <Button
-        pdReport:layout_width="fill_parent"
-        pdReport:layout_height="fill_parent"
-        pdReport:textSize ="50dp"
-        pdReport:text = "GooGle MAP"
+    <include
+        layout="@layout/activity_googlemap"
+        pdReport:id="@+id/fg_googlemap"
 
-        pdReport:background="#bdb2b1"/>
+    />
+
 
 
 </LinearLayout>
+
+
